@@ -1,67 +1,86 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Function library example</title>
-  <style>
-    input {
-      font-size: 2em;
-      margin: 10px 1px 0;
-    }
-  </style>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <title>Rock Paper Scissors</title>
+    </head>
+    <body></body>
+    <script>
 
-  <input class="numberInput" type="text">
-  <p></p>
+        // Create variable "options" where the three possible values are, then declare the function computerPlay() wich picks a
+        // random option between those three
+        let options = ["rock", "paper", "scissors"];
+        function computerPlay() {
+            computerSelection = options[Math.floor(Math.random()*options.length)];
+        }
 
-  <script>
-    const input = document.querySelector('.numberInput');
-    const para = document.querySelector('p');
-    function squared(num) {
-      return num * num;
-}
+        // Create a function called "playerSelection" that will be assigned the value via a prompt, transform the result to lower
+        // case so it doesn't matter the way the player types it
+        function playerPrompt() {
+        playerSelection = prompt("What's your move?");
+        playerSelection = playerSelection.toLowerCase();
+        }
 
-function cubed(num) {
-  return num * num * num;
-}
+        // Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection
+        // and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+        // I decided to return "You won this round" and "You lost this round" because I thought it would be too much work to increment the
+        // scores if I had a different roundResult for every combination, there is probably a way of doing that and not having a clustered 
+        // code but I was unable to reach that solution
+        let roundResult;
+        function playRound(playerSelection, computerSelection) {
+            if (playerSelection == computerSelection) {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "It's a draw";
+            } else if (playerSelection == "rock" && computerSelection == "scissors") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You won this round!";
+            } else if (playerSelection == "paper" && computerSelection == "rock") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You won this round!";
+            } else if (playerSelection == "scissors" && computerSelection == "paper") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You won this round!";
+            } else if (playerSelection == "rock" && computerSelection == "paper") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You lost this round!";
+            } else if (playerSelection == "paper" && computerSelection == "scissors") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You lost this round!";
+            } else if (playerSelection == "scissors" && computerSelection == "rock") {
+                console.log(`The computer chose ${computerSelection}!`)
+                return roundResult = "You lost this round!";
+            } else {
+                return roundResult = "You have to choose a valid option!";
+            }
+        }
 
-function factorial(num) {
-  if (num < 0) return undefined;
-  if (num == 0) return 1;
-  let x = num - 1;
-  while (x > 1) {
-    num *= x;
-    x--;
-  }
-  return num;
-}
+        // Create two variables = playerScore and computerScore
+        // The function game() makes the computer choose an option, then makes the player choose an option, then invokes the function playRound()
+        // wich compares the two choices and returns the result to the variable roundResult.
+        // After each game() iteration, use console.log to display the roundResult
+        // After each game() iteration, the script should take note of the score, if roundResult = "You won this round!", playerScore gets incremented
+        // if else roundResult = "You lost this round!", computerScore gets incremented, else, run the function game() again
+        let playerScore = 0;
+        let computerScore = 0;
 
-function dividedByTwo(num) {
-  return num / 2;
-}
+        function game() {
+            computerPlay();
+            playerPrompt();
+            playRound(playerSelection, computerSelection);
+            console.log(roundResult);
+            if (roundResult == "You won this round!") {
+                playerScore = ++playerScore;
+            } else if (roundResult == "You lost this round!") {
+                computerScore = ++computerScore;
+            } else {
+                game();
+            }
+        }
+        for (let i = 0; i <= 5; i++) {
+            game()
+        }
 
-function timesPi(num) {
-  return num * 3.14159265359;
-}
-
-function negative(num) {
-  return num * -1;
-}
-
-input.addEventListener('change', () => {
-  const num = parseFloat(input.value);
-  if (isNaN(num)) {
-    para.textContent = 'You need to enter a number!';
-  } else {
-    para.textContent = `${num} squared is ${squared(num)}. `;
-    para.textContent += `${num} cubed is ${cubed(num)}. `;
-    para.textContent += `${num} factorial is ${factorial(num)}. `;
-    para.textContent += `${num} divided by two is ${dividedByTwo(num)}. `;
-    para.textContent += `${num} times Pi is ${timesPi(num)}. `;
-    para.textContent += `${num} in its negative form is ${negative(num)}. `;
-  }
-});
-  </script>
-</body>
+        // At the end of the script, make an if statement: if (playerScore > computerScore) {alert("You won the game!")} else {alert("You lost the game!")}
+        (playerScore > computerScore) ? alert("You won the game!") : alert("You lost the game!");
+    </script>
 </html>
