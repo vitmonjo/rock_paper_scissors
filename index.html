@@ -3,84 +3,57 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
+        <script src="js-script.js" defer></script>
+        <style>
+            .button {
+                height: 150px;
+                width: 150px;
+                border-radius: 50%;
+                font-size: 25px;
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                background-color: #ced3db
+            }
+            .body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                flex-direction: column;
+                background: linear-gradient(#e66465, #9198e5);
+            }
+            .divider {
+                width:30px;
+                height:auto;
+                display:inline-block;
+            }
+            .organizerBtn {
+                display: flex;
+            }
+            .scores {
+                font-size: 40px;
+            }
+            .title {
+                font-size: 70px;
+            }
+            .scoreOrganizer {
+                display: flex;
+            }
+        </style>
     </head>
-    <body></body>
-    <script>
-
-        // Create variable "options" where the three possible values are, then declare the function computerPlay() wich picks a
-        // random option between those three
-        let options = ["rock", "paper", "scissors"];
-        function computerPlay() {
-            computerSelection = options[Math.floor(Math.random()*options.length)];
-        }
-
-        // Create a function called "playerSelection" that will be assigned the value via a prompt, transform the result to lower
-        // case so it doesn't matter the way the player types it
-        function playerPrompt() {
-        playerSelection = prompt("What's your move?");
-        playerSelection = playerSelection.toLowerCase();
-        }
-
-        // Write a function that plays a single round of Rock Paper Scissors. The function should take two parameters - the playerSelection
-        // and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
-        // I decided to return "You won this round" and "You lost this round" because I thought it would be too much work to increment the
-        // scores if I had a different roundResult for every combination, there is probably a way of doing that and not having a clustered 
-        // code but I was unable to reach that solution
-        let roundResult;
-        function playRound(playerSelection, computerSelection) {
-            if (playerSelection == computerSelection) {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "It's a draw";
-            } else if (playerSelection == "rock" && computerSelection == "scissors") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You won this round!";
-            } else if (playerSelection == "paper" && computerSelection == "rock") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You won this round!";
-            } else if (playerSelection == "scissors" && computerSelection == "paper") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You won this round!";
-            } else if (playerSelection == "rock" && computerSelection == "paper") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You lost this round!";
-            } else if (playerSelection == "paper" && computerSelection == "scissors") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You lost this round!";
-            } else if (playerSelection == "scissors" && computerSelection == "rock") {
-                console.log(`The computer chose ${computerSelection}!`)
-                return roundResult = "You lost this round!";
-            } else {
-                return roundResult = "You have to choose a valid option!";
-            }
-        }
-
-        // Create two variables = playerScore and computerScore
-        // The function game() makes the computer choose an option, then makes the player choose an option, then invokes the function playRound()
-        // wich compares the two choices and returns the result to the variable roundResult.
-        // After each game() iteration, use console.log to display the roundResult
-        // After each game() iteration, the script should take note of the score, if roundResult = "You won this round!", playerScore gets incremented
-        // if else roundResult = "You lost this round!", computerScore gets incremented, else, run the function game() again
-        let playerScore = 0;
-        let computerScore = 0;
-
-        function game() {
-            computerPlay();
-            playerPrompt();
-            playRound(playerSelection, computerSelection);
-            console.log(roundResult);
-            if (roundResult == "You won this round!") {
-                playerScore = ++playerScore;
-            } else if (roundResult == "You lost this round!") {
-                computerScore = ++computerScore;
-            } else {
-                game();
-            }
-        }
-        for (let i = 0; i <= 5; i++) {
-            game()
-        }
-
-        // At the end of the script, make an if statement: if (playerScore > computerScore) {alert("You won the game!")} else {alert("You lost the game!")}
-        (playerScore > computerScore) ? alert("You won the game!") : alert("You lost the game!");
-    </script>
+    <body class="body">
+        <div class="title">Rock Paper Scissors</div>
+        <h4>by vitmonjo</h4>
+        <div id="organizerBtn">
+        <button class="button" id="rock">ROCK</button>
+        <div class="divider"></div>
+        <button class="button" id="paper">PAPER</button>
+        <div class="divider"></div>
+        <button class="button" id="scissors">SCISSORS</button>
+        </div>
+        <p style="font-size: 20px" id="computerChoice">The computer chose: </p>
+        <p id="scoreOrganizer">
+        <div class="scores" id="pScore">Player Score: </div>
+        <div class="scores" id="cScore">Computer Score:</div>
+        </p>
+    </body>
 </html>
